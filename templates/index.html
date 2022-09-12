@@ -1,0 +1,87 @@
+<!-- View all tickets according to status: New, In Progress, Done, Invalid -->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Bug Tracker</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="" />
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+		
+		<li>
+			<a href="/logout/">Logout</a>
+		{%else %}
+		<a href="/login/">Login</a>
+		{% endif %}
+		</li>
+
+		<br/>
+		<a href="/newticket/">ADD A NEW BUG TO THE HIT LIST</a>
+		<ul>
+			<h2>NEW</h2>
+			{% for ticket in tickets %}
+			{% if ticket.ticket_status == 'New' %}
+			<li>
+				<a href="/ticket/{{ ticket.id }}"> {{ ticket.title }}</a> <br/>
+				Bug identified on {{ ticket.datetime }} by {{ ticket.created_by }}<br/>
+				<a href="/in_progress/{{ ticket.id }}"> <br/>
+					Hunt this bug</a>
+					<a href="/done/{{ ticket.id }}"> <br/>
+						Send this bug to it's grave</a><br/>
+						<a href="/invalid/{{ ticket.id }}"> Bug does not exist</a>
+						
+					</li> <br/>
+					{% endif %}
+					{% endfor %}
+					
+					<h2>IN PROGRESS</h2>
+					{% for ticket in tickets %}
+					{% if ticket.ticket_status == 'In Progress' %}
+					<li>
+						<a href="/ticket/{{ ticket.id }}"> {{ ticket.title }}</a>
+						<br/>
+						Bug identified on {{ ticket.datetime }} by {{ ticket.created_by }} <br/>
+						<br/>
+						<a href="/done/{{ ticket.id }}">
+							Bug Assigned to: {{ticket.assigned_to}} <br/>
+							<br/>
+							Send this bug to it's grave</a><br/>
+							<a href="/invalid/{{ ticket.id }}"> Bug does not exist</a><br/>
+						</li><br/>
+						{% endif %}
+						{% endfor %}
+
+						<h2>DONE</h2>
+						{% for ticket in tickets %}
+						{% if ticket.ticket_status == 'Done' %}
+						<li>
+							<a href="/ticket/{{ ticket.id }}"> {{ ticket.title }}</a> <br/>
+							Bug identified on {{ ticket.datetime }} by {{ticket.created_by}}<br/>
+							<br/>
+							Bug eliminated by {{ticket.completed_by}} <br/>
+							<br/>
+							<a href="/invalid/{{ ticket.id }}"> Bug does not exist</a>
+						</li> <br/>
+						{% endif %}
+						{% endfor %}
+						
+						<h2>INVALID</h2>
+						{% for ticket in tickets %}
+						{% if ticket.ticket_status == 'Invalid' %}
+						<li>
+							<a href="/ticket/{{ ticket.id }}"> {{ ticket.title }}</a> <br/>Bug identified on {{ ticket.datetime }} by {{ticket.created_by}} <br/>
+						</li><br/>
+						{% endif %}
+						{% endfor %}
+					</ul>
+					
+					
+					
+					<!-- <script src="" async defer></script> -->
+				</body>
+			
+				</html>
+				

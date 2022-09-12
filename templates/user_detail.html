@@ -1,0 +1,39 @@
+<!-- User is logged in and user tickets are displayed -->
+<h1>
+	{{ user.username }}'s bugs!
+</h1>
+	<ul>
+		<h2>{{ user.username }}'s Ticket History:</h2>
+		{% for ticket in tickets %}
+		<li>
+			<a href="/ticket/{{ ticket.id }}"> <br/> 
+				{{ ticket.title }}</a> <br/>
+			Bug identified on {{ ticket.datetime }} by {{ ticket.created_by }}
+			<br/>
+			<a href="/done/{{ ticket.id }}">
+			Send this bug to it's grave</a><br/>
+
+			<a href="/invalid/{{ ticket.id }}"> Bug does not exist</a>
+			<br/>
+		</li>
+		{% endfor %} 
+        <h2>NEW</h2>
+		{% for ticket in tickets %} {% if ticket.ticket_status == 'New' %}
+		<li>
+			<a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a>
+		</li>
+		{% endif %}{% endfor %}
+        <h2>IN PROGRESS</h2>
+        {% for ticket in tickets %} {% if ticket.ticket_status == 'In Progress' %}
+		<li>
+			<a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a>
+		</li>
+		{% endif %}{% endfor %}
+        <h2>DONE</h2>
+        {% for ticket in tickets %} {% if ticket.ticket_status == 'Done' %}
+		<li>
+			<a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a>
+		</li>
+		{% endif %}{% endfor %}
+	</ul>
+

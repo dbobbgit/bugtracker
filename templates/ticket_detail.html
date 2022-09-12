@@ -1,0 +1,12 @@
+<!-- Status, User Assigned, User who Completed, User who Filed -->
+Ticket Title: {{ ticket.title }} <br/>
+Ticket Created on: {{ ticket.datetime}} <br/>
+<br/>
+Ticket Status: {{ ticket.ticket_status}} <br/>
+Ticket Assigned to: <a href="/user/profile/{{ ticket.assigned_to.id}}/">{{ticket.assigned_to}}</a> <br/>
+Ticket Created by: {{ ticket.created_by}} <br/>
+Ticket Completed by: {{ ticket.completed_by}} <br/>
+Ticket Description: {{ ticket.description}} <br/>
+
+
+Edit This Ticket: <a href="/editticket/{{ ticket.id }}/">{{ ticket.title }}</a> <br/>
